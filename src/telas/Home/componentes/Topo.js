@@ -1,58 +1,49 @@
-import React from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
-import { carregaTopo } from "../../../servicos/carregaDados";
-import logo from '../../../../assets/logo.png'
+import React from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
-class Topo extends React.Component{
+import logo from '../../../assets/logo.png';
+import useTextos from '../../../hooks/useTextos';
 
-    state={
-        topo:{
-            boasVindas:'',
-            legenda:'',
-        }
-    }
+export default function Topo({ melhoresProdutores }) {
+  const { boasVindas, legenda, legendaMelhoresProdutores } = useTextos();
 
-
-    atualizaTopo(){
-        const retorno = carregaTopo();
-        this.setState({topo:retorno})
-        //console.log(retorno)
-    }
-    componentDidMount(){
-        //console.log('componenete montado');
-        this.atualizaTopo();
-    }
-    render(){
-    return <View style={estilos.topo}> 
-        <Image style={estilos.imagem} source={logo} />
-    <Text style={estilos.boasVindas}>{this.state.topo.boasVindas}</Text>
-    <Text style={estilos.legenda}>{this.state.topo.legenda}</Text>
-    </View>
-    }
+  return <>
+    <View style={estilos.topo}>
+      <Image source={logo} style={estilos.imagem} />
+      <Text style={estilos.boasVindas}>{melhoresProdutores ? "" : boasVindas}</Text>
+      <Text style={estilos.legenda}>{melhoresProdutores ? legendaMelhoresProdutores : legenda}</Text>
+    </View>    
+  </>
 }
 
 const estilos = StyleSheet.create({
-topo:{
-    backgroundColor: '#f6f6f6',
-    padding: 16
-},
-imagem:{
-    width:70,
-    height:28,
-},
-boasVindas: {
+  topo: {
+    backgroundColor: '#F6F6F6',
+    padding: 16,
+  },
+  compra: {
+    backgroundColor: '#EAF5F3',
+    padding: 16,
+  },
+  compraMensagem: {
+    fontSize: 16,
+    lineHeight: 26,
+    color: '#464646',
+  },
+  imagem: {
+    width: 70,
+    height: 28,
+  },
+  boasVindas: {
     marginTop: 24,
     fontSize: 26,
     lineHeight: 42,
     fontWeight: 'bold',
     color: '#464646'
-},
-legenda: {
+  },
+  legenda: {
     fontSize: 16,
     lineHeight: 26,
-    color: '#АЗАЗАЗ'
-}
+    color: '#A3A3A3',
+  }
 });
-
-
-export default Topo;
